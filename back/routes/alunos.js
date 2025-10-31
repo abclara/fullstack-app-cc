@@ -1,5 +1,6 @@
 var express = require('express');
 var router = express.Router();
+var authenticateToken = require('../middleware/auth');
 
 // BANCO DE DADOS
 alunos = [
@@ -7,14 +8,14 @@ alunos = [
 ]
 
 /* GET alunos API. */
-router.get('/:id', function(req, res, next) {
-  dados = req.params.id
-  console.log('veio', dados)
+router.get('/', authenticateToken, function(req, res, next) {
   res.send( { alunos });
 });
 
-/* GET alunos pelo ID API. */
-router.get('/', function(req, res, next) {
+/* GET alunos pelo ID API*/ 
+router.get('/:id',function(req, res, next) {
+  dados = req.params.id
+  console.log('veio', dados)
   res.send( { alunos });
 });
 
